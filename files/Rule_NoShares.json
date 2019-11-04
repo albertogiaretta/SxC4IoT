@@ -1,0 +1,14 @@
+{
+  "Rule": "NoShares",
+  "device": "Philips.HueWhite",
+  "domain": "LAN",
+  "shares": [
+    
+  ],
+  "provides": [
+    "SetDayNight"
+  ],
+  "requires": [
+    
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "Rule": "A3",
+  "device": "D-Link.933L",
+  "domain": "Internet",
+  "shares": [
+    "Apple.LukePhone"
+  ],
+  "provides": [
+    "SetDayNight"
+  ],
+  "requires": [
+    "Philips.HueMotion.Presence"
+  ]
+}

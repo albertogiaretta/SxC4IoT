@@ -1,0 +1,18 @@
+{
+  "Contract": "D2",
+  "rules" : [
+    {
+      "Rule": "D2",
+      "device": "Philips.HueMotion",
+      "domain": "LAN",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    }
+  ]
+}

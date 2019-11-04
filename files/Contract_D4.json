@@ -1,0 +1,18 @@
+{
+  "Contract": "D4",
+  "rules" : [
+    {
+      "Rule": "D4",
+      "device": "Philips.HueMotion",
+      "domain": "LAN",
+      "shares": [
+        "Philips.HueWhite"
+      ],
+      "provides": [
+        "Presence"
+      ],
+      "requires": [
+      ]
+    }
+  ]
+}

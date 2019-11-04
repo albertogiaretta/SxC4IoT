@@ -1,0 +1,14 @@
+{
+  "Rule": "MA2",
+  "device": "Philips.HueWhite",
+  "domain": "*",
+  "shares": [
+    
+  ],
+  "provides": [
+    "On"
+  ],
+  "requires": [
+    
+  ]
+}

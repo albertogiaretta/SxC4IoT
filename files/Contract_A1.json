@@ -1,0 +1,18 @@
+{
+  "Contract": "CRuleA1",
+  "rules" : [
+    {
+      "Rule": "A1",
+      "device": "D-Link.933L",
+      "domain": "*",
+      "shares": [
+        "Apple.LukePhone"
+      ],
+      "provides": [
+        "SetDayNight"
+      ],
+      "requires": [
+      ]
+    }
+  ]
+}

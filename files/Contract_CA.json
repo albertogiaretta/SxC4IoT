@@ -1,0 +1,31 @@
+{
+  "Contract": "CA",
+  "rules" : [
+    {
+      "Rule": "A1",
+      "D": "D-Link.933L",
+      "Dom": "*",
+      "Shares": [
+        "Apple.LukePhone"
+      ],
+      "Provides": [
+        "SetDayNight"
+      ],
+      "Requires": [
+      ]
+    },
+    {
+      "Rule": "A3",
+      "D": "D-Link.933L",
+      "Dom": "LAN",
+      "Shares": [
+        "Apple.LukePhone"
+      ],
+      "Provides": [
+        "SetDayNight", "AdminPanel"
+      ],
+      "Requires": [
+      ]
+    }
+  ]
+}

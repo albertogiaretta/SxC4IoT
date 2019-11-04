@@ -1,0 +1,19 @@
+{
+  "Contract": "D1",
+  "rules" : [
+    {
+      "Rule": "D1",
+      "device": "D-Link.933L",
+      "domain": "LAN",
+      "shares": [
+        "Apple.LukePhone"
+      ],
+      "provides": [
+        "SetDayNight"
+      ],
+      "requires": [
+        "Philips.HueMotion.On"
+      ]
+    }
+  ]
+}

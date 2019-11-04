@@ -1,0 +1,12 @@
+{
+  "Rule": "A2",
+  "device": "D-Link.933L",
+  "domain": "*",
+  "shares": [
+  ],
+  "provides": [
+  ],
+  "requires": [
+    "Philips.HueWhite.On"
+  ]
+}

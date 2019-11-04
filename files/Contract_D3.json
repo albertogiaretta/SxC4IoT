@@ -1,0 +1,19 @@
+{
+  "Contract": "D3",
+  "rules" : [
+    {
+      "Rule": "D3",
+      "device": "D-Link.933L",
+      "domain": "LAN",
+      "shares": [
+        "Philips.HueWhite"
+      ],
+      "provides": [
+        "SetDayNight"
+      ],
+      "requires": [
+        "Philips.HueMotion.Presence"
+      ]
+    }
+  ]
+}

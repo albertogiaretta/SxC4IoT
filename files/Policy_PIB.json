@@ -1,0 +1,54 @@
+{
+  "Policy": "PIB",
+  "contracts": [
+    {
+      "Contract": "CRuleA1",
+      "rules": [
+      {
+        "Rule": "A1",
+        "device": "D-Link.933L",
+        "domain": "*",
+        "shares": [
+          "Apple.LukePhone"
+        ],
+        "provides": [
+          "SetDayNight"
+        ],
+        "requires": [
+        ]
+      }
+      ]
+    },
+    {      
+      "Contract": "CRuleB2",
+      "rules": [
+      {
+        "Rule": "B2",
+        "device": "Philips.HueWhite",
+        "domain": "LAN",
+        "shares": [
+          "*.*"
+        ],
+        "provides": [
+          "On", "Bri"
+        ],
+        "requires": [
+        ]
+      },
+      {
+        "Rule": "Admin2",
+        "device": "Philips.HueWhite",
+        "domain": "LAN",
+        "shares": [
+          "*.*"
+        ],
+        "provides": [
+          "On", "Bri", "Hue"
+        ],
+        "requires": [
+        ]
+      }
+      ]
+    }
+  ]
+}
