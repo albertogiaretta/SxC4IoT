@@ -112,10 +112,12 @@ class FogNodeTest {
         assertTrue(fogNodePA.containsContract(deviceCB.getContract()), "Contract CB is in"
                 + "Policy PA, we should find it! Should return true!");
         
-        fogNodePA.updatePolicy(new Policy("files/Policy_PIB.json"));
+        fogNodePA.updatePolicy(new Policy("files/Policy_PB.json"));
         
-        assertFalse(fogNodePA.containsContract(deviceCB.getContract()), "Contract CB is NOT"
-                + "in Policy PB, we should NOT find it! Should return false!");
+        assertTrue(fogNodePA.containsContract(deviceCB.getContract()), "Contract CB was in"
+                + "Policy PA. Now FogNode contains Policy PB, but when we update we keep"
+                + "contracts that are still OK with the new policy. CB is consistent with"
+                + "Policy PB so we maintained it. Should return true!");
         
         assertTrue(fogNodePA.containsContract(deviceA1.getContract()), "Now FogNode"
                 + "contains Policy PB. Contract A1 is in PB. Should return true!");
