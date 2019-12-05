@@ -2,10 +2,11 @@ import java.util.ArrayList;
 
 public class FogNode {
     private Policy policy;
-    private ArrayList<Contract> waitingPool;
+    private ArrayList<Contract> updatePool;
     
     public FogNode() {
         policy = new Policy();
+        updatePool = new ArrayList<>();
     }
     
     public FogNode(Policy inputPolicy) {
@@ -32,6 +33,10 @@ public class FogNode {
             
             addToNetwork(iterContract);
         }
+    }
+    
+    public void storeInUpdatePool(Contract newContract) {
+        updatePool.add(newContract);
     }
     
     //PACKAGE VISIBILITY FOR TESTING
