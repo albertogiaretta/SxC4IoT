@@ -10,9 +10,13 @@ import com.google.gson.JsonSyntaxException;
 
 public class Contract {
     private ArrayList<Rule> rulesInContract;
+    private boolean verified;
+    private boolean extracted;
     
     public Contract() {
         rulesInContract = new ArrayList<Rule>();
+        verified = false;
+        extracted = false;
     }
     
     public Contract(String pathInput) {
@@ -62,6 +66,24 @@ public class Contract {
         return rulesInContract;
     }
     
+    public void markVerified() {
+        verified = true;
+        extracted = false;
+    }
+    
+    public void markExtracted() {
+        verified = false;
+        extracted = true;
+    }
+    
+    public boolean isVerified() {
+        return verified;
+    }
+    
+    public boolean isExtracted() {
+        return extracted;
+    }
+    
     public boolean isConsistentContract() {
         for(int i=0, j=numberOfRules(); i<j; i++) {
             Rule ruleInContract = getRuleNumber(i);
@@ -78,14 +100,25 @@ public class Contract {
     }
     
     public boolean isCompliantWithPolicy(Policy inputPolicy) {
-    Policy tempPolicy = inputPolicy.clone();
-    
-    if(inputPolicy.isEmpty())
-        return true;
+        Policy tempPolicy = inputPolicy;
 
-    tempPolicy.addContract(this);
+        if(inputPolicy.isEmpty())
+            return true;
+
+        tempPolicy.addContract(this);
         
-    return tempPolicy.isConsistentPolicy();
+        return tempPolicy.isConsistentPolicy();
+        }
+    
+    public boolean isCompliantWithPolicy(Policy inputPolicy, Contract oldContract) {
+        Policy tempPolicy = new Policy();
+        for(int i=0, j=inputPolicy.numberOfContracts(); i<j; i++) {
+            Contract iteratedContract = inputPolicy.getContractNumber(i);
+            if(iteratedContract != oldContract)
+                tempPolicy.addContract(iteratedContract);
+        }
+    
+    return isCompliantWithPolicy(tempPolicy);
     }
     
     public Rule getRuleNumber(int inputNumber) {
