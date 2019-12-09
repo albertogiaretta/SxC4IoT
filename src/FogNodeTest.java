@@ -35,7 +35,7 @@ class FogNodeTest {
     final void testRefuseContractIBWithPolicyPA() {
         init();
         System.out.println(deviceIB.getContract().numberOfRules());
-        assertFalse(fogNodePA.addToNetwork(deviceIB), "Contract IB is"
+        assertFalse(fogNodePA.addDevice(deviceIB), "Contract IB is"
                 + "inconsistent. Should return false!");
     }
     
@@ -43,7 +43,7 @@ class FogNodeTest {
     final void testAcceptContractCBWithPolicyPA() {
         init();
         
-        assertTrue(fogNodePA.addToNetwork(deviceCB), "Contract CB is"
+        assertTrue(fogNodePA.addDevice(deviceCB), "Contract CB is"
                 + "already part of the network, so the device with this"
                 + "contract can join. Should return true!");
     }
@@ -53,7 +53,7 @@ class FogNodeTest {
         init();
         fogNodePA.clearPolicy();
         
-        assertTrue(fogNodePA.addToNetwork(deviceCB), "The Fog policy"
+        assertTrue(fogNodePA.addDevice(deviceCB), "The Fog policy"
                 + "is empty, so the device with the Contract CB"
                 + "can join. Should return true!");
     }
@@ -62,7 +62,7 @@ class FogNodeTest {
     final void testAcceptContractB3WithPolicyPA() {
         init();
         
-        assertFalse(fogNodePA.addToNetwork(deviceB3), "Contract B3 is"
+        assertFalse(fogNodePA.addDevice(deviceB3), "Contract B3 is"
                 + "inconsistent with Policy PA, which contains Contract CB."
                 + "Should return false!");
     }
@@ -71,7 +71,7 @@ class FogNodeTest {
     final void testAcceptContractD4WithPolicyPA() {
         init();
         
-        assertTrue(fogNodePA.addToNetwork(deviceD3), "Contract D3 is"
+        assertTrue(fogNodePA.addDevice(deviceD3), "Contract D3 is"
                 + "consistent with Policy PA, which contains Contract CB."
                 + "Should return true!");
     }
