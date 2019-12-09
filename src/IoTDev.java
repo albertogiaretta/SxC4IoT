@@ -33,8 +33,14 @@ public class IoTDev {
         return contract;
     }
     
+
+    // STUB METHOD
+    public boolean hasContract() {
+        return true;
+    }
+    
     //STUB METHOD
-    private boolean hasValidPoC(Contract newContract) {
+    public boolean hasValidPoC(Contract newContract) {
         return newContract.isConsistentContract();
     }
     
@@ -44,6 +50,9 @@ public class IoTDev {
     }
     
     public void updateContract(Contract newContract) {
+        if(fogNode.updateContract(this, newContract) == true)
+            addContract(newContract);
+        /*
         if(hasValidPoC(newContract)) 
             newContract.markVerified();  
         else {
@@ -60,7 +69,7 @@ public class IoTDev {
             fogNode.addToNetwork(this);
         }
         else
-            fogNode.storeInUpdatePool(newContract);
+            fogNode.storeInUpdatePool(newContract);*/
         
     }
     
