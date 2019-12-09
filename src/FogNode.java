@@ -24,14 +24,14 @@ public class FogNode {
     }
     
     public void updatePolicy(Policy newPolicy) {
-        System.out.println("--- Updating the Policy!---");
+        //System.out.println("--- Updating the Policy!---");
         Policy tempPolicy = policy.clone();
         policy = newPolicy;
         
         for(int i=0; i<tempPolicy.numberOfContracts(); i++) {
             Contract iterContract = tempPolicy.getContractNumber(i);
             
-            addToNetwork(iterContract);
+            addToPolicy(iterContract);
         }
     }
     
@@ -48,30 +48,77 @@ public class FogNode {
         return policy.numberOfContracts();
     }
     
-    public boolean addToNetwork(IoTDev inputDevice) {
-        if(inputDevice.hasValidPoC())
-            return addToNetwork(inputDevice.getContract());
-        return false;
+    public boolean updateContract(IoTDev inputDevice, Contract newContract) {
+        if(inputDevice.hasValidPoC(newContract)) 
+            newContract.markVerified();  
+        else {
+            new Dbac();
+            if(inputDevice.getContract().isVerified() == false 
+                    & Dbac.canExtractContract(inputDevice)) {
+                Dbac.extractContract(inputDevice);
+                inputDevice.getContract().markExtracted();
+            }
+            else
+                return false;
+        }
+        
+        if(newContract.isCompliantWithPolicy(policy, newContract)) 
+            this.removeFromNetwork(inputDevice);
+        
+        return this.addToPolicy(newContract);
     }
     
-    private boolean addToNetwork(Contract inputContract) {
-        if(containsContract(inputContract)) {
-            System.out.println(inputContract.toString() + " already in network!");
-            return true;
+    public boolean addContract(IoTDev inputDevice, Contract newContract) {
+        if(inputDevice.hasValidPoC(newContract)) 
+            newContract.markVerified();  
+        else {
+            new Dbac();
+            if(Dbac.canExtractContract(inputDevice)) {
+                Dbac.extractContract(inputDevice);
+                inputDevice.getContract().markExtracted();
+            }
+            else
+                return false;
         }
-        if(inputContract.isConsistentContract()
-                & inputContract.isCompliantWithPolicy(policy)
-                ) {
+        
+        return this.addToPolicy(newContract);
+    }
+    
+    public boolean addDevice(IoTDev inputDevice) {
+        if(inputDevice.hasValidPoC()) 
+            inputDevice.getContract().markVerified();
+        else {
+            new Dbac();
+            if(inputDevice.getContract().isVerified() == false 
+                    & Dbac.canExtractContract(inputDevice)) {
+                Dbac.extractContract(inputDevice);
+                inputDevice.getContract().markExtracted();
+            }
+            else
+                return false;
+        }
+        
+        return addToPolicy(inputDevice.getContract());
+    }
+    
+    private boolean addToPolicy(Contract inputContract) {
+        if(inputContract.isCompliantWithPolicy(policy, inputContract)) {
             policy.addContract(inputContract);
-            System.out.println(inputContract.toString() + " accepted!");
             return true;
         }
-        System.out.println(inputContract.toString() + " rejected!");
-        return false;
+        else {
+            this.storeInUpdatePool(inputContract);
+            return false;
+        }
+
     }
     
     public void removeFromNetwork(IoTDev inputDevice) {
-        policy.removeContract(inputDevice.getContract());
+        this.removeFromNetwork(inputDevice.getContract());
+    }
+    
+    public void removeFromNetwork(Contract inputContract) {
+        policy.removeContract(inputContract);
     }
     
     public Policy getPolicy() {
