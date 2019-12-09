@@ -12,6 +12,7 @@ class IoTDevTest {
     IoTDev deviceD;
     IoTDev deviceE;
     
+    Contract contractIB;
     Contract contractD1;
     Contract contractD2;
     Contract contractD5;
@@ -27,11 +28,26 @@ class IoTDevTest {
         deviceD = new IoTDev("files/Contract_D2.json", fogNodePFlegal);
         deviceE = new IoTDev("files/Contract_D5.json");
         
+        contractIB = new Contract("files/Contract_IB.json");
         contractD1 = new Contract("files/Contract_D1.json");
         contractD2 = new Contract("files/Contract_D2.json");
         contractD5 = new Contract("files/Contract_D5.json");
     }
     
+    @Test
+    final void testUpdateContractWithInconsistentOne() {
+        init();
+        
+        assertTrue(deviceE.getContract().equals(contractD5), "It is true that "
+                + "Device E has Contract.");
+        
+        deviceE.updateContract(contractIB);
+        
+        assertTrue(deviceE.getContract().equals(contractIB), "In theory we should"
+                + "reject this contract and extract a new one with DBAC. But"
+                + "in our stub method we mark the current contract as Extracted"
+                + "and that's it. Should return true!");
+    }
     
     @Test
     final void testUpdateContractWithoutFogNode() {
