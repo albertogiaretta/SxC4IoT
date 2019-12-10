@@ -11,6 +11,7 @@ class IoTDevTest {
     IoTDev deviceC;
     IoTDev deviceD;
     IoTDev deviceE;
+    IoTDev deviceEmpty;
     
     Contract contractIB;
     Contract contractD1;
@@ -27,6 +28,7 @@ class IoTDevTest {
         deviceC = new IoTDev("files/Contract_D5.json", fogNodePFlegal);
         deviceD = new IoTDev("files/Contract_D2.json", fogNodePFlegal);
         deviceE = new IoTDev("files/Contract_D5.json");
+        deviceEmpty = new IoTDev();
         
         contractIB = new Contract("files/Contract_IB.json");
         contractD1 = new Contract("files/Contract_D1.json");
@@ -129,5 +131,22 @@ class IoTDevTest {
         
         assertTrue(deviceC.sendMessage(deviceD, "Hello there!"), "There is not "
                 + "an Illegal Information Exchange, messages are allowed!");
+    }
+    
+    @Test
+    final void testHasNoContract() {
+        init();
+        
+        assertFalse(deviceEmpty.hasContract(), "We created a default device"
+                + "without a contract, just an empty object. Should "
+                + "return false.");
+    }
+    
+    @Test
+    final void testHasContract() {
+        init();
+        
+        assertTrue(deviceA.hasContract(), "We created a device with a contract,"
+                + "Should return true.");
     }
 }

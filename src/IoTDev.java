@@ -33,10 +33,11 @@ public class IoTDev {
         return contract;
     }
     
-
-    // STUB METHOD
     public boolean hasContract() {
-        return true;
+        if(contract.numberOfRules() > 0)
+            return true;
+        else
+            return false;
     }
     
     //STUB METHOD
