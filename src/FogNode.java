@@ -24,7 +24,6 @@ public class FogNode {
     }
     
     public void updatePolicy(Policy newPolicy) {
-        //System.out.println("--- Updating the Policy!---");
         Policy tempPolicy = policy.clone();
         policy = newPolicy;
         
@@ -61,7 +60,15 @@ public class FogNode {
                 return false;
         }
         
-        return this.addToPolicy(newContract);
+        if(canAddToPolicy(newContract)) {
+            inputDevice.updateContract(newContract);
+            addToPolicy(newContract);
+            return true;
+        }
+        else {
+            storeInUpdatePool(newContract);
+            return false;
+        }
     }
     
     public boolean updateContract(IoTDev inputDevice, Contract newContract) {
@@ -78,10 +85,16 @@ public class FogNode {
                 return false;
         }
         
-        if(newContract.isCompliantWithPolicy(policy, inputDevice.getContract())) 
-            this.removeFromNetwork(inputDevice);
-        
-        return this.addToPolicy(newContract);
+        if(canAddToPolicy(newContract)) {
+            removeFromNetwork(inputDevice);
+            inputDevice.updateContract(newContract);
+            addToPolicy(newContract);
+            return true;
+        }
+        else {
+            storeInUpdatePool(newContract);
+            return false;
+        }
     }
     
     public boolean addDevice(IoTDev inputDevice) {
@@ -98,7 +111,15 @@ public class FogNode {
                 return false;
         }
         
-        return addToPolicy(inputDevice.getContract());
+        if(canAddToPolicy(inputDevice.getContract())) {
+            inputDevice.updateContract(inputDevice.getContract());
+            addToPolicy(inputDevice.getContract());
+            return true;
+        }
+        else {
+            storeInUpdatePool(inputDevice.getContract());
+            return false;
+        }
     }
     
     public boolean updateSoftware(IoTDev inputDevice) {
@@ -116,22 +137,29 @@ public class FogNode {
                 return false;
         }
         
-        if(inputDevice.getContract().isCompliantWithPolicy(policy)) 
-            this.removeFromNetwork(inputDevice);
-        
-        return this.addToPolicy(inputDevice.getContract());
-    }
-    
-    private boolean addToPolicy(Contract inputContract) {
-        if(inputContract.isCompliantWithPolicy(policy, inputContract)) {
-            policy.addContract(inputContract);
+        if(canAddToPolicy(inputDevice.getContract())) {
+            inputDevice.updateContract(inputDevice.getContract());
+            addToPolicy(inputDevice.getContract());
             return true;
         }
         else {
-            this.storeInUpdatePool(inputContract);
+            storeInUpdatePool(inputDevice.getContract());
             return false;
         }
+    }
+    
+    private boolean canAddToPolicy(Contract inputContract) {
+        if(inputContract.isCompliantWithPolicy(policy, inputContract))
+            return true;
+        else 
+            return false;
+    }
 
+    private void addToPolicy(Contract inputContract) {
+        if(canAddToPolicy(inputContract)) 
+            policy.addContract(inputContract);
+        else 
+            storeInUpdatePool(inputContract);
     }
     
     public void removeFromNetwork(IoTDev inputDevice) {
