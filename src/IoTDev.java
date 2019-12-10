@@ -50,27 +50,7 @@ public class IoTDev {
     }
     
     public void updateContract(Contract newContract) {
-        if(fogNode.updateContract(this, newContract) == true)
             addContract(newContract);
-        /*
-        if(hasValidPoC(newContract)) 
-            newContract.markVerified();  
-        else {
-            new Dbac();
-            if(contract.isVerified() == false & Dbac.canExtractContract(this)) {
-                Dbac.extractContract(this);
-                contract.markExtracted();
-            }
-        }
-        
-        if(newContract.isCompliantWithPolicy(fogNode.getPolicy(), contract)) {
-            fogNode.removeFromNetwork(this);
-            addContract(newContract);
-            fogNode.addToNetwork(this);
-        }
-        else
-            fogNode.storeInUpdatePool(newContract);*/
-        
     }
     
     public boolean sendMessage(IoTDev recipient, String inputMessage) {
