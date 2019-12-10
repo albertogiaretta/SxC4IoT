@@ -25,7 +25,7 @@ public class IoTDev {
         fogNode = inputFogNode;        
     }
     
-    private void addContract(Contract inputContract) {
+    public void addContract(Contract inputContract) {
             contract = inputContract;
     }
     
@@ -50,7 +50,7 @@ public class IoTDev {
     }
     
     public void updateContract(Contract newContract) {
-            addContract(newContract);
+            fogNode.updateContract(this, newContract);
     }
     
     public boolean sendMessage(IoTDev recipient, String inputMessage) {

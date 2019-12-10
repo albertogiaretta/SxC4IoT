@@ -61,7 +61,7 @@ public class FogNode {
         }
         
         if(canAddToPolicy(newContract)) {
-            inputDevice.updateContract(newContract);
+            inputDevice.addContract(newContract);
             addToPolicy(newContract);
             return true;
         }
@@ -87,7 +87,7 @@ public class FogNode {
         
         if(canAddToPolicy(newContract)) {
             removeFromNetwork(inputDevice);
-            inputDevice.updateContract(newContract);
+            inputDevice.addContract(newContract);
             addToPolicy(newContract);
             return true;
         }
@@ -112,7 +112,7 @@ public class FogNode {
         }
         
         if(canAddToPolicy(inputDevice.getContract())) {
-            inputDevice.updateContract(inputDevice.getContract());
+            inputDevice.addContract(inputDevice.getContract());
             addToPolicy(inputDevice.getContract());
             return true;
         }
@@ -138,7 +138,7 @@ public class FogNode {
         }
         
         if(canAddToPolicy(inputDevice.getContract())) {
-            inputDevice.updateContract(inputDevice.getContract());
+            inputDevice.addContract(inputDevice.getContract());
             addToPolicy(inputDevice.getContract());
             return true;
         }
