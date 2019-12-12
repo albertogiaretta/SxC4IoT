@@ -4,11 +4,13 @@ public class IoTDev {
     private Contract contract;
     private FogNode fogNode;
     private ArrayList<Message> receivedMessages;
+    private boolean PoC;
     
     public IoTDev() {
         contract = new Contract();
         fogNode = new FogNode();
         receivedMessages = new ArrayList<>();
+        PoC = true;
     }
     
     public IoTDev(Contract inputContract) {
@@ -34,15 +36,18 @@ public class IoTDev {
     }
     
     public boolean hasContract() {
-        if(contract.numberOfRules() > 0)
-            return true;
-        else
+        if(contract.isEmpty())
             return false;
+        else
+            return true;
     }
     
     //STUB METHOD
     public boolean hasValidPoC(Contract newContract) {
-        return newContract.isConsistentContract();
+        if(PoC == true & newContract.isConsistentContract())
+            return true;
+        else
+            return false;
     }
     
     //STUB METHOD
@@ -52,6 +57,10 @@ public class IoTDev {
     
     public void updateContract(Contract newContract) {
             fogNode.updateContract(this, newContract);
+    }
+    
+    public void updateSoftware(Contract newContract) {
+        fogNode.updateSoftware(this, newContract);
     }
     
     public boolean sendMessage(IoTDev recipient, String inputMessage) {
