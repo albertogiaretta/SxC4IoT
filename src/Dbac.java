@@ -3,11 +3,17 @@ public class Dbac {
     
     //STUB METHOD
     public static boolean canExtractContract(IoTDev inputDevice) {
-        return true;
+        if(inputDevice.getContract().isEmpty())
+            return false;
+        else
+            return true;
     }
     
     //STUB METHOD, WE PRETEND WE EXTRACTED THE CONTRACT
-    public static boolean extractContract(IoTDev inputDevice) {
-        return true;
+    public static Contract extractContract(IoTDev inputDevice) {
+        if(canExtractContract(inputDevice))
+            return inputDevice.getContract();
+        else
+            return null;
     }
 }
