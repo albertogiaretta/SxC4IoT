@@ -48,51 +48,59 @@ public class FogNode {
     }
     
     public boolean addContract(IoTDev inputDevice, Contract newContract) {
-        if(inputDevice.hasValidPoC(newContract)) 
-            newContract.markVerified();  
+        Contract tempContract;
+        
+        if(inputDevice.hasValidPoC(newContract)) {
+            newContract.markVerified();
+            tempContract = newContract;
+        }
         else {
             new Dbac();
             if(Dbac.canExtractContract(inputDevice)) {
-                Dbac.extractContract(inputDevice);
-                inputDevice.getContract().markExtracted();
+                tempContract = Dbac.extractContract(inputDevice);
+                tempContract.markExtracted();
             }
             else
                 return false;
         }
         
-        if(canAddToPolicy(newContract)) {
-            inputDevice.addContract(newContract);
-            addToPolicy(newContract);
+        if(canAddToPolicy(tempContract)) {
+            inputDevice.addContract(tempContract);
+            addToPolicy(tempContract);
             return true;
         }
         else {
-            storeInUpdatePool(newContract);
+            storeInUpdatePool(tempContract);
             return false;
         }
     }
     
     public boolean updateContract(IoTDev inputDevice, Contract newContract) {
-        if(inputDevice.hasValidPoC(newContract)) 
-            newContract.markVerified();  
+        Contract tempContract;
+        
+        if(inputDevice.hasValidPoC(newContract)) {
+            newContract.markVerified();
+            tempContract = newContract;
+        }
         else {
             new Dbac();
             if(inputDevice.getContract().isVerified() == false 
                     & Dbac.canExtractContract(inputDevice)) {
-                Dbac.extractContract(inputDevice);
-                inputDevice.getContract().markExtracted();
+                tempContract = Dbac.extractContract(inputDevice);
+                tempContract.markExtracted();
             }
             else
                 return false;
         }
         
-        if(canAddToPolicy(newContract)) {
+        if(canAddToPolicy(tempContract)) {
             removeFromNetwork(inputDevice);
-            inputDevice.addContract(newContract);
-            addToPolicy(newContract);
+            inputDevice.addContract(tempContract);
+            addToPolicy(tempContract);
             return true;
         }
         else {
-            storeInUpdatePool(newContract);
+            storeInUpdatePool(tempContract);
             return false;
         }
     }
@@ -122,28 +130,32 @@ public class FogNode {
         }
     }
     
-    public boolean updateSoftware(IoTDev inputDevice) {
-        if(inputDevice.hasContract() 
-                & inputDevice.hasValidPoC(inputDevice.getContract())) 
-            inputDevice.getContract().markVerified();  
+    public boolean updateSoftware(IoTDev inputDevice, Contract newContract) {
+        Contract tempContract;
+        
+        if(newContract.isConsistentContract() 
+                & inputDevice.hasValidPoC(newContract)) {
+            newContract.markVerified();
+            tempContract = newContract;
+        }
         else {
             new Dbac();
             if(inputDevice.getContract().isVerified() == false 
                     & Dbac.canExtractContract(inputDevice)) {
-                Dbac.extractContract(inputDevice);
-                inputDevice.getContract().markExtracted();
+                tempContract = Dbac.extractContract(inputDevice);
+                tempContract.markExtracted();
             }
             else
                 return false;
         }
         
-        if(canAddToPolicy(inputDevice.getContract())) {
-            inputDevice.addContract(inputDevice.getContract());
-            addToPolicy(inputDevice.getContract());
+        if(canAddToPolicy(tempContract)) {
+            inputDevice.addContract(tempContract);
+            addToPolicy(tempContract);
             return true;
         }
         else {
-            storeInUpdatePool(inputDevice.getContract());
+            storeInUpdatePool(tempContract);
             return false;
         }
     }
