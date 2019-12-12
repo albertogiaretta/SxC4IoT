@@ -84,6 +84,13 @@ public class Contract {
         return extracted;
     }
     
+    public boolean isEmpty() {
+        if(numberOfRules() > 0)
+            return false;
+        else
+            return true;
+    }
+    
     public boolean isConsistentContract() {
         for(int i=0, j=numberOfRules(); i<j; i++) {
             Rule ruleInContract = getRuleNumber(i);
