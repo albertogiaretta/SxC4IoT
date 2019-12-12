@@ -45,10 +45,47 @@ class IoTDevTest {
         
         deviceE.updateContract(contractIB);
         
-        assertTrue(deviceE.getContract().equals(contractIB), "In theory we should"
-                + "reject this contract and extract a new one with DBAC. But"
-                + "in our stub method we mark the current contract as Extracted"
-                + "and that's it. Should return true!");
+        assertFalse(deviceE.getContract().equals(contractIB), "We reject IB "
+                + "contract, since it is inconsistent. Contracts in our "
+                + "stub implementations are not verified by default, so we "
+                + "extract a new contract and mark it extracted. However, what"
+                + "we do in the stub implementation is to take the old contract"
+                + "and mark it extracted. Therefore the contract is still D5."
+                + "Should return false!");
+        
+        assertTrue(deviceE.getContract().equals(contractD5), "We reject IB "
+                + "contract, since it is inconsistent. Contracts in our "
+                + "stub implementations are not verified by default, so we "
+                + "extract a new contract and mark it extracted. However, what"
+                + "we do in the stub implementation is to take the old contract"
+                + "and mark it extracted. Therefore the contract is still D5."
+                + "Should return true!");
+    }
+    
+    @Test
+    final void testUpdateSoftwaretWithInconsistentContract() {
+        init();
+        
+        assertTrue(deviceE.getContract().equals(contractD5), "It is true that "
+                + "Device E has Contract.");
+        
+        deviceE.updateSoftware(contractIB);
+        
+        assertFalse(deviceE.getContract().equals(contractIB), "We reject IB "
+                + "contract, since it is inconsistent. Contracts in our "
+                + "stub implementations are not verified by default, so we "
+                + "extract a new contract and mark it extracted. However, what"
+                + "we do in the stub implementation is to take the old contract"
+                + "and mark it extracted. Therefore the contract is still D5."
+                + "Should return false!");
+        
+        assertTrue(deviceE.getContract().equals(contractD5), "We reject IB "
+                + "contract, since it is inconsistent. Contracts in our "
+                + "stub implementations are not verified by default, so we "
+                + "extract a new contract and mark it extracted. However, what"
+                + "we do in the stub implementation is to take the old contract"
+                + "and mark it extracted. Therefore the contract is still D5."
+                + "Should return true!");
     }
     
     @Test
@@ -76,6 +113,35 @@ class IoTDevTest {
                 + "that Contract D5 was within Policy PFlegal.");
         
         deviceC.updateContract(contractD1);
+        
+        assertEquals(fogNodePFlegal.numberOfContracts(), 2, "We tried to "
+                + "update Device C with Contract D1. However, D1 is not "
+                + "consistent with Contract D2. Therefore, the contract is"
+                + "not updated!");
+        
+        assertTrue(fogNodePFlegal.containsContract(contractD2), "It is true "
+                + "that Contract D2 is still within Policy PFlegal.");
+        
+        assertTrue(fogNodePFlegal.containsContract(contractD5), " Contract D5 "
+                + "is still in Policy PFlegal, since we could not updated it"
+                + "with Contract D1.");
+        
+        assertFalse(fogNodePFlegal.containsContract(contractD1), "Contract D1 "
+                + "has not been inserted in Policy PFlegal.");
+    }
+    
+    @Test
+    final void testUpdateSoftware() {
+        init();
+        
+        assertEquals(fogNodePFlegal.numberOfContracts(), 2, "Policy is valid, "
+                + "we expect to have 2 contracts, true!");
+        assertTrue(deviceC.getContract().equals(contractD5), "It is true that "
+                + "Device C has Contract D5.");
+        assertTrue(fogNodePFlegal.containsContract(contractD5), "It is true "
+                + "that Contract D5 was within Policy PFlegal.");
+        
+        deviceC.updateSoftware(contractD1);
         
         assertEquals(fogNodePFlegal.numberOfContracts(), 2, "We tried to "
                 + "update Device C with Contract D1. However, D1 is not "
