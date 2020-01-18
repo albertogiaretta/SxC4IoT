@@ -15,7 +15,7 @@ public class IoTDev {
     
     public IoTDev(Contract inputContract) {
         this();
-        addContract(inputContract);
+        setContract(inputContract);
     }
     
     public IoTDev(String inputPathContract) {
@@ -27,7 +27,7 @@ public class IoTDev {
         fogNode = inputFogNode;        
     }
     
-    public void addContract(Contract inputContract) {
+    public void setContract(Contract inputContract) {
             contract = inputContract;
     }
     
@@ -56,7 +56,7 @@ public class IoTDev {
     }
     
     public void updateContract(Contract newContract) {
-            fogNode.updateContract(this, newContract);
+        fogNode.updateContract(this, newContract);
     }
     
     public void updateSoftware(Contract newContract) {

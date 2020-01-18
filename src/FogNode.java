@@ -1,12 +1,18 @@
-import java.util.ArrayList;
+
 
 public class FogNode {
     private Policy policy;
-    private ArrayList<Contract> updatePool;
+    //private ArrayList<WaitingDevice> addContractPool;
+    //private ArrayList<WaitingDevice> updateContractPool;
+    //private ArrayList<WaitingDevice> addDevicePool;
+    //private ArrayList<WaitingDevice> updateSoftwarePool;
     
     public FogNode() {
         policy = new Policy();
-        updatePool = new ArrayList<>();
+        //addContractPool = new ArrayList<>();
+        //updateContractPool = new ArrayList<>();
+        //addDevicePool = new ArrayList<>();
+        //updateSoftwarePool = new ArrayList<>();
     }
     
     public FogNode(Policy inputPolicy) {
@@ -30,13 +36,16 @@ public class FogNode {
         for(int i=0; i<tempPolicy.numberOfContracts(); i++) {
             Contract iterContract = tempPolicy.getContractNumber(i);
             
-            addToPolicy(iterContract);
+            //addToPolicy(iterContract);
+            
+            if(compliantWithPolicy(iterContract)) 
+                policy.addContract(iterContract);
         }
     }
     
-    public void storeInUpdatePool(Contract newContract) {
-        updatePool.add(newContract);
-    }
+    //public void storeInUpdatePool(Contract newContract) {
+    //    updatePool.add(newContract);
+    //}
     
     //PACKAGE VISIBILITY FOR TESTING
     void clearPolicy() {
@@ -64,13 +73,15 @@ public class FogNode {
                 return false;
         }
         
-        if(canAddToPolicy(tempContract)) {
-            inputDevice.addContract(tempContract);
-            addToPolicy(tempContract);
+        if(compliantWithPolicy(tempContract)) {
+            inputDevice.setContract(tempContract); //SPOSTARE QUESTE FUNZIONI SU IoTDev!
+            policy.addContract(tempContract);
+            //addToPolicy(tempContract);
             return true;
         }
         else {
-            storeInUpdatePool(tempContract);
+            //WaitingDevice waitingDev = new WaitingDevice(inputDevice, tempContract);
+            //addContractPool.add(waitingDev);
             return false;
         }
     }
@@ -93,14 +104,15 @@ public class FogNode {
                 return false;
         }
         
-        if(canAddToPolicy(tempContract)) {
+        if(compliantWithPolicy(tempContract)) {
             removeFromNetwork(inputDevice);
-            inputDevice.addContract(tempContract);
-            addToPolicy(tempContract);
+            inputDevice.setContract(tempContract);
+            policy.addContract(tempContract);
             return true;
         }
         else {
-            storeInUpdatePool(tempContract);
+            //WaitingDevice waitingDev = new WaitingDevice(inputDevice, tempContract);
+            //updateContractPool.add(waitingDev);
             return false;
         }
     }
@@ -119,13 +131,14 @@ public class FogNode {
                 return false;
         }
         
-        if(canAddToPolicy(inputDevice.getContract())) {
-            inputDevice.addContract(inputDevice.getContract());
-            addToPolicy(inputDevice.getContract());
+        if(compliantWithPolicy(inputDevice.getContract())) {
+            inputDevice.setContract(inputDevice.getContract());
+            policy.addContract(inputDevice.getContract());
             return true;
         }
         else {
-            storeInUpdatePool(inputDevice.getContract());
+            //WaitingDevice waitingDev = new WaitingDevice(inputDevice, inputDevice.getContract());
+            //addDevicePool.add(waitingDev);
             return false;
         }
     }
@@ -149,30 +162,31 @@ public class FogNode {
                 return false;
         }
         
-        if(canAddToPolicy(tempContract)) {
-            inputDevice.addContract(tempContract);
-            addToPolicy(tempContract);
+        if(compliantWithPolicy(tempContract)) {
+            inputDevice.setContract(tempContract);
+            policy.addContract(tempContract);
             return true;
         }
         else {
-            storeInUpdatePool(tempContract);
+            //WaitingDevice waitingDev = new WaitingDevice(inputDevice, tempContract);
+            //updateSoftwarePool.add(waitingDev);
             return false;
         }
     }
     
-    private boolean canAddToPolicy(Contract inputContract) {
+    private boolean compliantWithPolicy(Contract inputContract) {
         if(inputContract.isCompliantWithPolicy(policy, inputContract))
             return true;
         else 
             return false;
     }
-
+/*
     private void addToPolicy(Contract inputContract) {
         if(canAddToPolicy(inputContract)) 
             policy.addContract(inputContract);
         else 
             storeInUpdatePool(inputContract);
-    }
+    }*/
     
     public void removeFromNetwork(IoTDev inputDevice) {
         this.removeFromNetwork(inputDevice.getContract());
