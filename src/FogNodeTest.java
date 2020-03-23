@@ -16,6 +16,7 @@ class FogNodeTest {
     IoTDev deviceB3;
     IoTDev deviceD3;
     
+    /*
     public void init() {
         outContent = new ByteArrayOutputStream();
                 
@@ -27,13 +28,14 @@ class FogNodeTest {
         deviceCB = new IoTDev("files/Contract_CB.json", fogNodePA);
         deviceB3 = new IoTDev("files/Contract_B3.json", fogNodePA);
         deviceD3 = new IoTDev("files/Contract_D3.json", fogNodePA);
-    }
-    
-    
+    }*/
     
     @Test
     final void testRefuseContractIBWithPolicyPA() {
-        init();
+        //init();
+        fogNodePA = new FogNode("files/Policy_PA.json");
+        deviceIB = new IoTDev("files/Contract_IB.json", fogNodePA);
+        
         System.out.println(deviceIB.getContract().numberOfRules());
         assertFalse(fogNodePA.addDevice(deviceIB), "Contract IB is"
                 + "inconsistent. Should return false!");
@@ -41,7 +43,9 @@ class FogNodeTest {
     
     @Test
     final void testAcceptContractCBWithPolicyPA() {
-        init();
+        //init();
+        fogNodePA = new FogNode("files/Policy_PA.json");
+        deviceCB = new IoTDev("files/Contract_CB.json", fogNodePA);
         
         assertTrue(fogNodePA.addDevice(deviceCB), "Contract CB is"
                 + "already part of the network, so the device with this"
@@ -50,8 +54,10 @@ class FogNodeTest {
     
     @Test
     final void testAcceptContractCBWithPolicyEmpty() {
-        init();
-        fogNodePA.clearPolicy();
+        //init();
+        fogNodePA = new FogNode("files/Policy_PA.json");
+        deviceCB = new IoTDev("files/Contract_CB.json");
+        //fogNodePA.clearPolicy();
         
         assertTrue(fogNodePA.addDevice(deviceCB), "The Fog policy"
                 + "is empty, so the device with the Contract CB"
@@ -60,7 +66,9 @@ class FogNodeTest {
     
     @Test
     final void testAcceptContractB3WithPolicyPA() {
-        init();
+        //init();
+        fogNodePA = new FogNode("files/Policy_PA.json");
+        deviceB3 = new IoTDev("files/Contract_B3.json", fogNodePA);
         
         assertFalse(fogNodePA.addDevice(deviceB3), "Contract B3 is"
                 + "inconsistent with Policy PA, which contains Contract CB."
@@ -69,7 +77,9 @@ class FogNodeTest {
     
     @Test
     final void testAcceptContractD4WithPolicyPA() {
-        init();
+        //init();
+        fogNodePA = new FogNode("files/Policy_PA.json");
+        deviceD3 = new IoTDev("files/Contract_D3.json", fogNodePA);
         
         assertTrue(fogNodePA.addDevice(deviceD3), "Contract D3 is"
                 + "consistent with Policy PA, which contains Contract CB."
@@ -78,7 +88,9 @@ class FogNodeTest {
     
     @Test
     final void testRemoveContractCBFromPolicyPA() {
-        init();
+        //init();
+        fogNodePA = new FogNode("files/Policy_PA.json");
+        deviceCB = new IoTDev("files/Contract_CB.json", fogNodePA);
         
         assertTrue(fogNodePA.containsContract(deviceCB.getContract()), "Contract CB is in"
                 + "Policy PA, we should find it! Should return true!");
@@ -91,7 +103,10 @@ class FogNodeTest {
     
     @Test
     final void testRemoveContractA1FromPolicyPB() {
-        init();
+        //init();
+        outContent = new ByteArrayOutputStream();
+        fogNodePB = new FogNode("files/Policy_PB.json");
+        deviceA1 = new IoTDev("files/Contract_A1.json", fogNodePB);
         
         assertTrue(fogNodePB.containsContract(deviceA1.getContract()), "Contract A1 is in"
                 + "Policy PB, we should find it! Should return true!");
@@ -107,7 +122,10 @@ class FogNodeTest {
     
     @Test
     final void testUpdatePolicy() {
-        init();
+        //init();
+        fogNodePA = new FogNode("files/Policy_PA.json");
+        deviceA1 = new IoTDev("files/Contract_A1.json", fogNodePB);
+        deviceCB = new IoTDev("files/Contract_CB.json", fogNodePA);
         
         assertTrue(fogNodePA.containsContract(deviceCB.getContract()), "Contract CB is in"
                 + "Policy PA, we should find it! Should return true!");

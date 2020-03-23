@@ -2,17 +2,9 @@
 
 public class FogNode {
     private Policy policy;
-    //private ArrayList<WaitingDevice> addContractPool;
-    //private ArrayList<WaitingDevice> updateContractPool;
-    //private ArrayList<WaitingDevice> addDevicePool;
-    //private ArrayList<WaitingDevice> updateSoftwarePool;
     
     public FogNode() {
         policy = new Policy();
-        //addContractPool = new ArrayList<>();
-        //updateContractPool = new ArrayList<>();
-        //addDevicePool = new ArrayList<>();
-        //updateSoftwarePool = new ArrayList<>();
     }
     
     public FogNode(Policy inputPolicy) {
@@ -20,13 +12,13 @@ public class FogNode {
         addPolicy(inputPolicy);
     }
     
-    public void addPolicy(Policy inputPolicy) {
-        if(inputPolicy.isConsistentPolicy())
-            policy = inputPolicy;
-    }
-    
     public FogNode(String inputPathPolicy) {
         this(new Policy(inputPathPolicy));
+    }
+    
+    private void addPolicy(Policy inputPolicy) {
+        if(inputPolicy.isConsistentPolicy())
+            policy = inputPolicy;
     }
     
     public void updatePolicy(Policy newPolicy) {
@@ -35,31 +27,26 @@ public class FogNode {
         
         for(int i=0; i<tempPolicy.numberOfContracts(); i++) {
             Contract iterContract = tempPolicy.getContractNumber(i);
-            
-            //addToPolicy(iterContract);
-            
+
             if(compliantWithPolicy(iterContract)) 
                 policy.addContract(iterContract);
         }
     }
-    
-    //public void storeInUpdatePool(Contract newContract) {
-    //    updatePool.add(newContract);
-    //}
     
     //PACKAGE VISIBILITY FOR TESTING
     void clearPolicy() {
         policy = new Policy();
     }
     
-    public int numberOfContracts() {
+    //PACKAGE VISIBILITY FOR TESTING
+    int numberOfContracts() {
         return policy.numberOfContracts();
     }
     
     public boolean addContract(IoTDev inputDevice, Contract newContract) {
         Contract tempContract;
         
-        if(inputDevice.hasValidPoC(newContract)) {
+        if(hasValidPoC(inputDevice, newContract)) {
             newContract.markVerified();
             tempContract = newContract;
         }
@@ -74,22 +61,18 @@ public class FogNode {
         }
         
         if(compliantWithPolicy(tempContract)) {
-            inputDevice.setContract(tempContract); //SPOSTARE QUESTE FUNZIONI SU IoTDev!
+            inputDevice.setContract(tempContract);
             policy.addContract(tempContract);
-            //addToPolicy(tempContract);
             return true;
         }
-        else {
-            //WaitingDevice waitingDev = new WaitingDevice(inputDevice, tempContract);
-            //addContractPool.add(waitingDev);
+        else
             return false;
-        }
     }
     
     public boolean updateContract(IoTDev inputDevice, Contract newContract) {
         Contract tempContract;
         
-        if(inputDevice.hasValidPoC(newContract)) {
+        if(hasValidPoC(inputDevice, newContract)) {
             newContract.markVerified();
             tempContract = newContract;
         }
@@ -110,16 +93,13 @@ public class FogNode {
             policy.addContract(tempContract);
             return true;
         }
-        else {
-            //WaitingDevice waitingDev = new WaitingDevice(inputDevice, tempContract);
-            //updateContractPool.add(waitingDev);
+        else
             return false;
-        }
     }
     
     public boolean addDevice(IoTDev inputDevice) {
         if(inputDevice.hasContract() 
-                & inputDevice.hasValidPoC()) 
+                & hasValidPoC(inputDevice)) 
             inputDevice.getContract().markVerified();
         else {
             new Dbac();
@@ -136,18 +116,15 @@ public class FogNode {
             policy.addContract(inputDevice.getContract());
             return true;
         }
-        else {
-            //WaitingDevice waitingDev = new WaitingDevice(inputDevice, inputDevice.getContract());
-            //addDevicePool.add(waitingDev);
+        else 
             return false;
-        }
     }
     
     public boolean updateSoftware(IoTDev inputDevice, Contract newContract) {
         Contract tempContract;
         
         if(newContract.isConsistentContract() 
-                & inputDevice.hasValidPoC(newContract)) {
+                & hasValidPoC(inputDevice, newContract)) {
             newContract.markVerified();
             tempContract = newContract;
         }
@@ -167,11 +144,8 @@ public class FogNode {
             policy.addContract(tempContract);
             return true;
         }
-        else {
-            //WaitingDevice waitingDev = new WaitingDevice(inputDevice, tempContract);
-            //updateSoftwarePool.add(waitingDev);
+        else
             return false;
-        }
     }
     
     private boolean compliantWithPolicy(Contract inputContract) {
@@ -180,13 +154,6 @@ public class FogNode {
         else 
             return false;
     }
-/*
-    private void addToPolicy(Contract inputContract) {
-        if(canAddToPolicy(inputContract)) 
-            policy.addContract(inputContract);
-        else 
-            storeInUpdatePool(inputContract);
-    }*/
     
     public void removeFromNetwork(IoTDev inputDevice) {
         this.removeFromNetwork(inputDevice.getContract());
@@ -202,5 +169,18 @@ public class FogNode {
     
     public boolean containsContract(Contract inputContract) {
         return policy.containsContract(inputContract);
+    }
+    
+    //STUB METHOD
+    public boolean hasValidPoC(IoTDev inputDev, Contract newContract) {
+        if(inputDev.getPoC() == true & newContract.isConsistentContract())
+            return true;
+        else
+            return false;
+    }
+    
+    //STUB METHOD
+    private boolean hasValidPoC(IoTDev inputDev) {
+        return hasValidPoC(inputDev, inputDev.getContract());
     }
 }
