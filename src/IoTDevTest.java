@@ -18,7 +18,7 @@ class IoTDevTest {
     Contract contractD2;
     Contract contractD5;
     
-    
+    /*
     void init() {
         fogNodePF = new FogNode("files/Policy_PF.json");
         fogNodePFlegal = new FogNode("files/Policy_PFlegal.json");
@@ -34,11 +34,14 @@ class IoTDevTest {
         contractD1 = new Contract("files/Contract_D1.json");
         contractD2 = new Contract("files/Contract_D2.json");
         contractD5 = new Contract("files/Contract_D5.json");
-    }
+    }*/
     
     @Test
-    final void testUpdateContractWithInconsistentOne() {
-        init();
+    final void testUpdateContractWithInconsistentContract() {
+        //init();
+        deviceE = new IoTDev("files/Contract_D5.json");
+        contractD5 = new Contract("files/Contract_D5.json");
+        contractIB = new Contract("files/Contract_IB.json");
         
         assertTrue(deviceE.getContract().equals(contractD5), "It is true that "
                 + "Device E has Contract.");
@@ -64,7 +67,10 @@ class IoTDevTest {
     
     @Test
     final void testUpdateSoftwaretWithInconsistentContract() {
-        init();
+        //init();
+        deviceE = new IoTDev("files/Contract_D5.json");
+        contractD5 = new Contract("files/Contract_D5.json");
+        contractIB = new Contract("files/Contract_IB.json");
         
         assertTrue(deviceE.getContract().equals(contractD5), "It is true that "
                 + "Device E has Contract.");
@@ -90,7 +96,10 @@ class IoTDevTest {
     
     @Test
     final void testUpdateContractWithoutFogNode() {
-        init();
+        //init();
+        deviceE = new IoTDev("files/Contract_D5.json");
+        contractD5 = new Contract("files/Contract_D5.json");
+        contractD1 = new Contract("files/Contract_D1.json");
         
         assertTrue(deviceE.getContract().equals(contractD5), "It is true that "
                 + "Device E has Contract.");
@@ -103,7 +112,12 @@ class IoTDevTest {
     
     @Test
     final void testUpdateContract() {
-        init();
+        //init();
+        fogNodePFlegal = new FogNode("files/Policy_PFlegal.json");
+        deviceC = new IoTDev("files/Contract_D5.json", fogNodePFlegal);
+        contractD1 = new Contract("files/Contract_D1.json");
+        contractD2 = new Contract("files/Contract_D2.json");
+        contractD5 = new Contract("files/Contract_D5.json");
         
         assertEquals(fogNodePFlegal.numberOfContracts(), 2, "Policy is valid, "
                 + "we expect to have 2 contracts, true!");
@@ -132,7 +146,12 @@ class IoTDevTest {
     
     @Test
     final void testUpdateSoftware() {
-        init();
+        //init();
+        fogNodePFlegal = new FogNode("files/Policy_PFlegal.json");
+        deviceC = new IoTDev("files/Contract_D5.json", fogNodePFlegal);
+        contractD1 = new Contract("files/Contract_D1.json");
+        contractD2 = new Contract("files/Contract_D2.json");
+        contractD5 = new Contract("files/Contract_D5.json");
         
         assertEquals(fogNodePFlegal.numberOfContracts(), 2, "Policy is valid, "
                 + "we expect to have 2 contracts, true!");
@@ -161,7 +180,8 @@ class IoTDevTest {
     
     @Test
     final void testPolicyPFNotInserted() {
-        init();
+        //init();
+        fogNodePF = new FogNode("files/Policy_PF.json");
         
         assertEquals(fogNodePF.numberOfContracts(), 0, "Policy is not valid, "
                 + "we expect to have no contracts!");
@@ -169,7 +189,10 @@ class IoTDevTest {
     
     @Test
     final void testMessageFromCD1toCD2() {
-        init();
+        //init();
+        fogNodePF = new FogNode("files/Policy_PF.json");
+        deviceA = new IoTDev("files/Contract_D1.json", fogNodePF);
+        deviceB = new IoTDev("files/Contract_D2.json", fogNodePF);
         
         assertFalse(deviceA.sendMessage(deviceB, "Hello there!"), "There is an "
                 + "Illegal Information Exchange, messages are not allowed!");
@@ -177,7 +200,10 @@ class IoTDevTest {
     
     @Test
     final void testMessageFromCD2toCD1() {
-        init();
+        //init();
+        fogNodePF = new FogNode("files/Policy_PF.json");
+        deviceA = new IoTDev("files/Contract_D1.json", fogNodePF);
+        deviceB = new IoTDev("files/Contract_D2.json", fogNodePF);
         
         assertFalse(deviceB.sendMessage(deviceA, "Hello there!"), "There is an "
                 + "Illegal Information Exchange, messages are allowed!");
@@ -185,15 +211,21 @@ class IoTDevTest {
 
     @Test
     final void testMessageFromCD2toCD5() {
-        init();
-
+        //init();
+        fogNodePFlegal = new FogNode("files/Policy_PFlegal.json");
+        deviceC = new IoTDev("files/Contract_D5.json", fogNodePFlegal);
+        deviceD = new IoTDev("files/Contract_D2.json", fogNodePFlegal);
+        
         assertTrue(deviceD.sendMessage(deviceC, "Hello there!"), "There is not "
                 + "an Illegal Information Exchange, messages are allowed!");
     }
     
     @Test
     final void testMessageFromCD5toCD2() {
-        init();
+        //init();
+        fogNodePFlegal = new FogNode("files/Policy_PFlegal.json");
+        deviceC = new IoTDev("files/Contract_D5.json", fogNodePFlegal);
+        deviceD = new IoTDev("files/Contract_D2.json", fogNodePFlegal);
         
         assertTrue(deviceC.sendMessage(deviceD, "Hello there!"), "There is not "
                 + "an Illegal Information Exchange, messages are allowed!");
@@ -201,7 +233,8 @@ class IoTDevTest {
     
     @Test
     final void testHasNoContract() {
-        init();
+        //init();
+        deviceEmpty = new IoTDev();
         
         assertFalse(deviceEmpty.hasContract(), "We created a default device"
                 + "without a contract, just an empty object. Should "
@@ -210,7 +243,9 @@ class IoTDevTest {
     
     @Test
     final void testHasContract() {
-        init();
+        //init();
+        fogNodePF = new FogNode("files/Policy_PF.json");
+        deviceA = new IoTDev("files/Contract_D1.json", fogNodePF);
         
         assertTrue(deviceA.hasContract(), "We created a device with a contract,"
                 + "Should return true.");
