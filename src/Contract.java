@@ -216,6 +216,13 @@ public class Contract {
         }
         return false;
     }
+    
+    public String getID() {
+        if(rulesInContract.isEmpty() == false)
+            return this.toString();
+        else
+            return "";
+    }
 
     @Override
     public boolean equals(Object objectInput) {
