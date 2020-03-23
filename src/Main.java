@@ -1,3 +1,4 @@
+import java.util.concurrent.TimeUnit;
 
 public class Main {
     static FogNode fogNodePFlegal = new FogNode("files/Policy_PFlegal.json");
@@ -9,7 +10,14 @@ public class Main {
         deviceC.sendMessage(deviceD, "Hello there!");
         deviceC.sendMessage(deviceD, "This is a second message");
         deviceC.sendMessage(deviceD, "And this is a third one!");
-        deviceC.sendMessage(deviceD, "It's getting annoying...");
+        deviceC.sendMessage(deviceD, "It is getting annoying");
+        
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         deviceD.printReceivedMessages();
         
         System.out.println("Updating the network policy...");
@@ -19,7 +27,18 @@ public class Main {
         deviceC.sendMessage(deviceD, "Hello there!");
         deviceC.sendMessage(deviceD, "This is a second message");
         deviceC.sendMessage(deviceD, "And this is a third one!");
-        deviceC.sendMessage(deviceD, "It's getting annoying...");
+        deviceC.sendMessage(deviceD, "It is getting annoying");
+        
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
         deviceD.printReceivedMessages();
+        
+        deviceC.disconnect();
+        deviceD.disconnect();
     }
 }
