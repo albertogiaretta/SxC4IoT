@@ -44,15 +44,5 @@ public class IoTDevNoFlowCheck extends IoTDev {
         
         receivedMessages.add(msg);
         writeToCSV(msg, inputMessage.getPayload());
-        //System.out.println(msg.sender + "sent: " + msg.message);
-        /*
-        System.out.println("Message is: "+ msg.message 
-                + "; payload size is: " + inputMessage.getPayload().length 
-                + " bytes; message size is: " + msg.message.getBytes().length 
-                + "; sender name size is: " + msg.sender.getBytes().length 
-                + "; estimated contract size is: " 
-                + (inputMessage.getPayload().length 
-                        - msg.message.getBytes().length 
-                        - msg.sender.getBytes().length));*/
     }
 }

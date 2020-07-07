@@ -10,7 +10,6 @@ public class MessageNoSxC extends Message {
     public MessageNoSxC() {
         sender = new String();
         message = new String();
-        //contract = null;
         timestamp = new Date().getTime();
     }
     
@@ -27,7 +26,5 @@ public class MessageNoSxC extends Message {
         sender = gson.fromJson(jsonString, Message.class).sender;
         message = gson.fromJson(jsonString, Message.class).message;
         timestamp = gson.fromJson(jsonString, Message.class).timestamp;
-        //System.out.println("Sender payload is: " + sender.getBytes().length + " bytes");
-        //System.out.println("Message payload is: " + message.getBytes().length + " bytes");
     }
 }

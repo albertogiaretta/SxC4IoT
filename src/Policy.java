@@ -97,17 +97,6 @@ public class Policy {
             contractsInPolicy.remove(findContract(inputContract));
         }
     }
-    /*
-    public boolean consistentWithInputContract(Contract inputContract) {
-        Policy tempPolicy = this.clone();
-        
-        if(this.contractsInPolicy.isEmpty())
-            return true;
-
-        tempPolicy.addContract(inputContract);
-            
-        return tempPolicy.isConsistentPolicy();
-    }*/
     
     private void addContractsFromJsonPolicy(JsonObject jsonObjInput) {
         JsonArray tempJsonArray = jsonObjInput.get("contracts").getAsJsonArray();

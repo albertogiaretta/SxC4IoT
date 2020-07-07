@@ -87,19 +87,6 @@ public class IoTDev implements MqttCallback{
         else
             return true;
     }
-    /*
-    //STUB METHOD
-    public boolean hasValidPoC(Contract newContract) {
-        if(PoC == true & newContract.isConsistentContract())
-            return true;
-        else
-            return false;
-    }
-    
-    //STUB METHOD
-    private boolean hasValidPoC() {
-        return hasValidPoC(contract);
-    }*/
     
     public void updateContract(Contract newContract) {
         fogNode.updateContract(this, newContract);
@@ -110,9 +97,6 @@ public class IoTDev implements MqttCallback{
     }
     
     public boolean sendMessage(IoTDev recipient, String inputMessage) {
-        //if(fogNode.containsContract(contract) 
-        //        & fogNode.containsContract(recipient.contract)
-        //        & contract.allowedInformationFlow(recipient.contract)) {
             try {
                 if ( !client.isConnected())
                     return false;
@@ -126,10 +110,6 @@ public class IoTDev implements MqttCallback{
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        //}
-        //else {
-        //    System.out.println("Information flow not allowed");
-        //}
         
         return false;
     }
@@ -159,17 +139,6 @@ public class IoTDev implements MqttCallback{
             receivedMessages.add(msg);
             
             writeToCSV(msg, inputMessage.getPayload());
-            //System.out.println(msg.sender + "sent: " + msg.message);
-            /*System.out.println("Message is: "+ msg.message 
-                    + "; payload size is: " + inputMessage.getPayload().length 
-                    + " bytes; message size is: " + msg.message.getBytes().length 
-                    + "; sender name size is: " + msg.sender.getBytes().length 
-                    + "; estimated contract size is: " 
-                    + (inputMessage.getPayload().length 
-                            - msg.message.getBytes().length 
-                            - msg.sender.getBytes().length));
-            */
-            //System.out.println(msg.message);
         }
         else {
             //Simply discard message
@@ -186,7 +155,6 @@ public class IoTDev implements MqttCallback{
         CSVWriter csvWriter = new CSVWriter(new FileWriter("./" + logPath 
                 + "/" + inputMessage.sender + "_" + this.toString()
                 + ".csv", true));
-        //String[] records = {"Sent", "Received", "#OfRules", "PayloadSize", "MessageSize", "ContractSize"};
         
         if(inputMessage.contract != null)
             numberOfRules = inputMessage.contract.getRules().size();

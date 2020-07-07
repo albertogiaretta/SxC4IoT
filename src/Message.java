@@ -42,8 +42,6 @@ public class Message implements Serializable {
         message = gson.fromJson(jsonString, Message.class).message;
         contract = gson.fromJson(jsonString, Message.class).contract;
         timestamp = gson.fromJson(jsonString, Message.class).timestamp;
-        //System.out.println("Sender payload is: " + sender.getBytes().length + " bytes");
-        //System.out.println("Message payload is: " + message.getBytes().length + " bytes");
     }
 
 }
