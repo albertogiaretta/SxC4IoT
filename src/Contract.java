@@ -107,7 +107,7 @@ public class Contract {
     }
     
     public boolean isCompliantWithPolicy(Policy inputPolicy) {
-        Policy tempPolicy = inputPolicy;
+        Policy tempPolicy = inputPolicy.clone();
 
         if(inputPolicy.isEmpty())
             return true;

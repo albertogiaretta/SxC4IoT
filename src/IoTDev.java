@@ -1,4 +1,7 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.eclipse.paho.client.mqttv3.IMqttClient;
@@ -10,13 +13,17 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
+import com.opencsv.CSVWriter;
+
 public class IoTDev implements MqttCallback{
-    private final int qos = 2;
     private Contract contract;
     private FogNode fogNode;
-    private ArrayList<Message> receivedMessages;
+    protected ArrayList<Message> receivedMessages;
     private boolean PoC;
-    private IMqttClient client;
+    private String logPath;
+    
+    protected IMqttClient client;
+    protected final int qos = 2;
     
     public IoTDev() {
         contract = new Contract();
@@ -40,13 +47,22 @@ public class IoTDev implements MqttCallback{
         fogNode = inputFogNode;        
     }
     
+    public IoTDev(String inputPathContract, FogNode inputFogNode, 
+            String inputLogPath) {
+        this(inputPathContract, inputFogNode);
+        logPath = inputLogPath;        
+    }
+    
     private void connectToMQTTServer() {
         try {
-            client = new MqttClient("tcp://mqtt.eclipse.org:1883", ""+ThreadLocalRandom.current().nextInt(1,180), new MemoryPersistence());
+            client = new MqttClient("tcp://localhost:1883", //"tcp://mqtt.eclipse.org:1883"
+                    ""+ThreadLocalRandom.current().nextInt(1,180), 
+                    new MemoryPersistence());
             MqttConnectOptions options = new MqttConnectOptions();
             options.setAutomaticReconnect(true);
             options.setCleanSession(true);
             options.setConnectionTimeout(60);
+            options.setMaxInflight(10000);
             client.connect(options);
             client.setCallback(this);
             client.subscribe(contract.getID()+"/in", qos);
@@ -94,11 +110,9 @@ public class IoTDev implements MqttCallback{
     }
     
     public boolean sendMessage(IoTDev recipient, String inputMessage) {
-        //if ( !client.isConnected())
-        //    connectToMQTTServer();
-        if(fogNode.containsContract(contract) 
-                & fogNode.containsContract(recipient.contract)
-                & contract.allowedInformationFlow(recipient.contract)) {
+        //if(fogNode.containsContract(contract) 
+        //        & fogNode.containsContract(recipient.contract)
+        //        & contract.allowedInformationFlow(recipient.contract)) {
             try {
                 if ( !client.isConnected())
                     return false;
@@ -112,10 +126,10 @@ public class IoTDev implements MqttCallback{
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        }
-        else {
-            System.out.println("Information flow not allowed");
-        }
+        //}
+        //else {
+        //    System.out.println("Information flow not allowed");
+        //}
         
         return false;
     }
@@ -136,20 +150,54 @@ public class IoTDev implements MqttCallback{
     }
 
     @Override
-    public void messageArrived(String inputTopic, MqttMessage inputMessage) {
+    public void messageArrived(String inputTopic, MqttMessage inputMessage) 
+            throws IOException {
         Message msg = new Message();
         msg.deserialize(inputMessage);
         
-        if(fogNode.containsContract(msg.contract)
-                & fogNode.containsContract(contract)
-                & contract.allowedInformationFlow(msg.contract)) {
+        if(msg.contract.isCompliantWithPolicy(fogNode.getPolicy())) {
             receivedMessages.add(msg);
+            
+            writeToCSV(msg, inputMessage.getPayload());
             //System.out.println(msg.sender + "sent: " + msg.message);
-            System.out.println("Payload size is: " + inputMessage.getPayload().length + " bytes");
+            /*System.out.println("Message is: "+ msg.message 
+                    + "; payload size is: " + inputMessage.getPayload().length 
+                    + " bytes; message size is: " + msg.message.getBytes().length 
+                    + "; sender name size is: " + msg.sender.getBytes().length 
+                    + "; estimated contract size is: " 
+                    + (inputMessage.getPayload().length 
+                            - msg.message.getBytes().length 
+                            - msg.sender.getBytes().length));
+            */
+            //System.out.println(msg.message);
         }
         else {
             //Simply discard message
         }
+    }
+    
+    protected void writeToCSV(Message inputMessage, byte[] payloadLength) 
+            throws IOException {
+        int estimateContractSize = (payloadLength.length 
+                - inputMessage.message.getBytes().length 
+                - inputMessage.sender.getBytes().length);
+        int numberOfRules = 0;
+        
+        CSVWriter csvWriter = new CSVWriter(new FileWriter("./" + logPath 
+                + "/" + inputMessage.sender + "_" + this.toString()
+                + ".csv", true));
+        //String[] records = {"Sent", "Received", "#OfRules", "PayloadSize", "MessageSize", "ContractSize"};
+        
+        if(inputMessage.contract != null)
+            numberOfRules = inputMessage.contract.getRules().size();
+        
+        String[] records = {""+inputMessage.timestamp, ""+new Date().getTime(), 
+                ""+numberOfRules,
+                ""+payloadLength.length , 
+                ""+inputMessage.message.getBytes().length, 
+                ""+estimateContractSize};
+        csvWriter.writeNext(records);
+        csvWriter.close();
     }
     
     @Override

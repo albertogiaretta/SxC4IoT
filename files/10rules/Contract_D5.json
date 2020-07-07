@@ -1,0 +1,145 @@
+{
+  "Contract": "D5",
+  "rules": [
+    {
+      "Rule": "D5",
+      "device": "D-Link.933L",
+      "domain": "LAN",
+      "shares": [
+        "Philips.HueWhite"
+      ],
+      "provides": [
+        "SetDayNight"
+      ],
+      "requires": [
+        "Philips.HueMotion.On"
+      ]
+    },
+    {
+      "Rule": "D6",
+      "device": "D-Link.933L",
+      "domain": "Internet",
+      "shares": [
+        "Philips.HueWhite"
+      ],
+      "provides": [
+        "SetDayNight"
+      ],
+      "requires": [
+        "Philips.HueMotion.On"
+      ]
+    },
+    {
+      "Rule": "D7",
+      "device": "D-Link.933L",
+      "domain": "Work",
+      "shares": [
+        "Philips.HueWhite"
+      ],
+      "provides": [
+        "SetDayNight"
+      ],
+      "requires": [
+        "Philips.HueMotion.On"
+      ]
+    },
+    {
+      "Rule": "D8",
+      "device": "D-Link.933L",
+      "domain": "Office",
+      "shares": [
+        "Philips.HueWhite"
+      ],
+      "provides": [
+        "SetDayNight"
+      ],
+      "requires": [
+        "Philips.HueMotion.On"
+      ]
+    },
+    {
+      "Rule": "D9",
+      "device": "D-Link.933L",
+      "domain": "Park",
+      "shares": [
+        "Philips.HueWhite"
+      ],
+      "provides": [
+        "SetDayNight"
+      ],
+      "requires": [
+        "Philips.HueMotion.On"
+      ]
+    },
+    {
+      "Rule": "D10",
+      "device": "D-Link.933L",
+      "domain": "Cafeteria",
+      "shares": [
+        "Philips.HueWhite"
+      ],
+      "provides": [
+        "SetDayNight"
+      ],
+      "requires": [
+        "Philips.HueMotion.On"
+      ]
+    },
+    {
+      "Rule": "D11",
+      "device": "D-Link.933L",
+      "domain": "University",
+      "shares": [
+        "Philips.HueWhite"
+      ],
+      "provides": [
+        "SetDayNight"
+      ],
+      "requires": [
+        "Philips.HueMotion.On"
+      ]
+    },
+    {
+      "Rule": "D12",
+      "device": "D-Link.933L",
+      "domain": "Car",
+      "shares": [
+        "Philips.HueWhite"
+      ],
+      "provides": [
+        "SetDayNight"
+      ],
+      "requires": [
+        "Philips.HueMotion.On"
+      ]
+    },
+{
+      "Rule": "D13",
+      "device": "D-Link.933L",
+      "domain": "LAN2",
+      "shares": [
+        "Philips.HueWhite"
+      ],
+      "provides": [
+        "SetDayNight"
+      ],
+      "requires": [
+        "Philips.HueMotion.On"
+      ]
+    },
+    {
+      "Rule": "D14",
+      "device": "D-Link.933L",
+      "domain": "Internet2",
+      "shares": [
+        "Philips.HueWhite"
+      ],
+      "provides": [
+        "SetDayNight"
+      ],
+      "requires": [
+        "Philips.HueMotion.On"
+      ]
+    }
+  ]
+}

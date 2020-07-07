@@ -1,30 +1,32 @@
 {
-  "Contract": "CA",
-  "rules" : [
+  "Contract": "D5",
+  "rules": [
     {
-      "Rule": "A1",
+      "Rule": "D5",
       "device": "D-Link.933L",
-      "domain": "*",
+      "domain": "LAN",
       "shares": [
-        "Apple.LukePhone"
+        "Philips.HueWhite"
       ],
       "provides": [
         "SetDayNight"
       ],
       "requires": [
+        "Philips.HueMotion.On"
       ]
     },
     {
-      "Rule": "A3",
+      "Rule": "D6",
       "device": "D-Link.933L",
-      "domain": "LAN",
+      "domain": "Internet",
       "shares": [
-        "Apple.LukePhone"
+        "Philips.HueWhite"
       ],
       "provides": [
-        "SetDayNight", "AdminPanel"
+        "SetDayNight"
       ],
       "requires": [
+        "Philips.HueMotion.On"
       ]
     }
   ]
