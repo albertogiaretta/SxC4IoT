@@ -87,7 +87,7 @@ public class FogNode {
                 return false;
         }
         
-        if(compliantWithPolicy(tempContract)) {
+        if(compliantWithPolicy(tempContract, inputDevice.getContract())) {
             removeFromNetwork(inputDevice);
             inputDevice.setContract(tempContract);
             policy.addContract(tempContract);
@@ -139,12 +139,20 @@ public class FogNode {
                 return false;
         }
         
-        if(compliantWithPolicy(tempContract)) {
+        if(compliantWithPolicy(tempContract, inputDevice.getContract())) {
+            removeFromNetwork(inputDevice);
             inputDevice.setContract(tempContract);
             policy.addContract(tempContract);
             return true;
         }
         else
+            return false;
+    }
+    
+    private boolean compliantWithPolicy(Contract inputContract, Contract oldContract) {
+        if(inputContract.isCompliantWithPolicy(policy, oldContract))
+            return true;
+        else 
             return false;
     }
     
