@@ -135,8 +135,7 @@ public class IoTDev implements MqttCallback{
         Message msg = new Message();
         msg.deserialize(inputMessage);
         
-        //if(msg.contract.isCompliantWithPolicy(fogNode.getPolicy())) {
-        if(!msg.contract.illegalInformationExchange(fogNode.getPolicy())
+        if(fogNode.containsContract(msg.contract)
                 && contract.allowedInformationFlow(msg.contract)) {
             receivedMessages.add(msg);
             
@@ -144,6 +143,8 @@ public class IoTDev implements MqttCallback{
         }
         else {
             //Simply discard message
+            //With MQTT ACLs we might also remove the device from the topic
+            //for preventing spamming
         }
     }
     
