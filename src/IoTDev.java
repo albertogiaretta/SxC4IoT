@@ -135,7 +135,9 @@ public class IoTDev implements MqttCallback{
         Message msg = new Message();
         msg.deserialize(inputMessage);
         
-        if(msg.contract.isCompliantWithPolicy(fogNode.getPolicy())) {
+        //if(msg.contract.isCompliantWithPolicy(fogNode.getPolicy())) {
+        if(!msg.contract.illegalInformationExchange(fogNode.getPolicy())
+                && contract.allowedInformationFlow(msg.contract)) {
             receivedMessages.add(msg);
             
             writeToCSV(msg, inputMessage.getPayload());
