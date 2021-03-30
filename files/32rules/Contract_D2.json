@@ -1,0 +1,421 @@
+{
+  "Contract": "Device1",
+  "rules" : [
+    {
+      "Rule": "1",
+      "device": "Philips.HueMotion",
+      "domain": "LAN",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "2",
+      "device": "Philips.HueMotion",
+      "domain": "Internet",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "3",
+      "device": "Philips.HueMotion",
+      "domain": "Work",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "4",
+      "device": "Philips.HueMotion",
+      "domain": "Office",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "5",
+      "device": "Philips.HueMotion",
+      "domain": "Park",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "6",
+      "device": "Philips.HueMotion",
+      "domain": "Cafeteria",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "7",
+      "device": "Philips.HueMotion",
+      "domain": "University",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "8",
+      "device": "Philips.HueMotion",
+      "domain": "Car",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+{
+      "Rule": "20",
+      "device": "Philips.HueMotion",
+      "domain": "LAN2",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "21",
+      "device": "Philips.HueMotion",
+      "domain": "Internet2",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "22",
+      "device": "Philips.HueMotion",
+      "domain": "Work2",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "23",
+      "device": "Philips.HueMotion",
+      "domain": "Office2",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "24",
+      "device": "Philips.HueMotion",
+      "domain": "Park2",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "25",
+      "device": "Philips.HueMotion",
+      "domain": "Cafeteria2",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "26",
+      "device": "Philips.HueMotion",
+      "domain": "University2",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "27",
+      "device": "Philips.HueMotion",
+      "domain": "Car2",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+{
+      "Rule": "30",
+      "device": "Philips.HueMotion",
+      "domain": "LAN3",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "31",
+      "device": "Philips.HueMotion",
+      "domain": "Internet3",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "32",
+      "device": "Philips.HueMotion",
+      "domain": "Work3",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "33",
+      "device": "Philips.HueMotion",
+      "domain": "Office3",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "34",
+      "device": "Philips.HueMotion",
+      "domain": "Park3",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "35",
+      "device": "Philips.HueMotion",
+      "domain": "Cafeteria3",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "36",
+      "device": "Philips.HueMotion",
+      "domain": "University3",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "37",
+      "device": "Philips.HueMotion",
+      "domain": "Car3",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+{
+      "Rule": "40",
+      "device": "Philips.HueMotion",
+      "domain": "LAN4",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "41",
+      "device": "Philips.HueMotion",
+      "domain": "Internet4",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "42",
+      "device": "Philips.HueMotion",
+      "domain": "Work4",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "43",
+      "device": "Philips.HueMotion",
+      "domain": "Office4",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "44",
+      "device": "Philips.HueMotion",
+      "domain": "Park4",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "45",
+      "device": "Philips.HueMotion",
+      "domain": "Cafeteria4",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "46",
+      "device": "Philips.HueMotion",
+      "domain": "University4",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    },
+    {
+      "Rule": "47",
+      "device": "Philips.HueMotion",
+      "domain": "Car4",
+      "shares": [
+        "D-Link.933L", "Philips.HueWhite"
+      ],
+      "provides": [
+        "On", "Bri"
+      ],
+      "requires": [
+      ]
+    }
+  ]
+}
